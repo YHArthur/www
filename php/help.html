@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>风赢官网用API说明文档</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+<link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link href="help.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="bs-docs-header" id="content" tabindex="-1">
+    <div class="container">
+      <h1>风赢官网用API说明文档</h1>
+      <p>2018.3.21 V1.0 by Y·H</p>
+    </div>
+  </div>
+
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="bs-docs-section">
+
+          <h3 id="common">概要说明</h3>
+          <h2></h2>
+          <pre>
+            <b>API访问地址</b>
+              正式服：http://www.fnying.com/php/
+
+            <b>返回数据格式</b>
+              json
+
+            <b>异常返回</b>
+              errcode 返回码
+              errmsg  失败信息
+
+              常见错误码：
+              -1  系统繁忙，稍候再试
+              110 服务异常中断，请与管理员联系
+              120 参数错误
+          </pre>
+
+          <h3 id="get_uuid">获取用户UUID</h3>
+          <h2><a href='http://www.fnying.com/php/get_uuid.php' target='api'>http://www.fnying.com/php/get_uuid.php</a></h2>
+          <pre>
+            <b>输入参数</b>
+              无
+
+            <b>返回</b>
+              uuid            UUID
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              获取用户唯一识别标识
+
+          </pre>
+
+          <h3 id="leave_email">免费订阅</h3>
+          <h2><a href='http://www.fnying.com/php/leave_email.php' target='api'>http://www.fnying.com/php/leave_email.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              email           Email地址
+              uuid            UUID
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="cancel_email">取消订阅</h3>
+          <h2><a href='http://www.fnying.com/php/cancel_email.php' target='api'>http://www.fnying.com/php/cancel_email.php</a></h2>
+          <pre>
+            <b>Get参数</b>
+              logid           用户邮件列表ID
+              email           Email地址
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="contact_us">联系我们</h3>
+          <h2><a href='http://www.fnying.com/php/contact_us.php' target='api'>http://www.fnying.com/php/contact_us.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              uuid            UUID
+              user_name       用户称呼
+              user_email      用户Email
+              user_suggestion 用户建议
+
+            <b>返回</b>
+              errcode = 0 请求成功
+
+            <b>说明</b>
+
+          </pre>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-md-3" role="complementary">
+        <nav class="bs-docs-sidebar hidten-print hidten-xs hidten-sm fixmenu">
+          <ul class="nav bs-docs-sidenav">
+            <li><a href="#common"><b>概要说明</b></a></li>
+            <li>------------------------------------------</li>
+            <li><a href="#get_uuid"><b class="text-success">获取用户UUID</b></a></li>
+            <li><a href="#leave_email"><b class="text-success">免费订阅</b></a></li>
+            <li><a href="#cancel_email"><b class="text-warning">取消订阅</b></a></li>
+            <li><a href="#contact_us"><b class="text-success">联系我们</b></a></li>
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
