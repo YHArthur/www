@@ -2,7 +2,7 @@ $(function(){
     // 分享标题
     var ShareTitle = '风赢科技官网';
     // 分享描述
-    var ShareDesc = '风行天下，赢在中国';
+    var ShareDesc = '风行天下，赢在中国！上海风赢网络科技有限公司官方网站（www.fnying.com）';
     // 分享链接
     var ShareLink = window.location.href;
     // 分享图标
