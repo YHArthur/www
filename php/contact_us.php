@@ -33,7 +33,7 @@ $uuid = get_arg_str('GET', 'uuid');
 $user_name = get_arg_str('GET', 'user_name');
 $user_email = get_arg_str('GET', 'user_email');
 $user_suggestion = get_arg_str('GET', 'user_suggestion');
-$user_ip = ip2long(get_ip());
+$user_ip = get_int_ip();
 
 // 默认返回信息
 $msg = '提交成功';

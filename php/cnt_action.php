@@ -45,7 +45,7 @@ $action_url .= isset($url_parse['path']) ? $url_parse['path'] : '';
 // 访问URL参数
 $action_prm = isset($url_parse['query']) ? $url_parse['query'] : '';
 // 访问IP
-$action_ip = ip2long(get_ip());
+$action_ip = get_int_ip();
 
 // 字段设定
 $data = array();

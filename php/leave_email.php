@@ -31,7 +31,7 @@ chk_empty_args('GET', $args);
 // 提交参数整理
 $email = get_arg_str('GET', 'email');
 $uuid = get_arg_str('GET', 'uuid');
-$user_ip = ip2long(get_ip());
+$user_ip = get_int_ip();
 
 // 默认返回信息
 $msg = '订阅成功';
