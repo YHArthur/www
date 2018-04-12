@@ -116,6 +116,21 @@
 
           </pre>
           
+          <h3 id="rpt_overview_refresh">网页访问概要统计刷新</h3>
+          <h2><a href='http://www.fnying.com/php/rpt_overview_refresh.php' target='api'>http://www.fnying.com/php/rpt_overview_refresh.php</a></h2>
+          <pre>
+            <b>参数</b>
+              无
+
+            <b>返回</b>
+              刷新数据，不管对错，不返回任何东西
+
+            <b>说明</b>
+              将rpt_overview表中所有记录读出，按照URL关键字（url_key）统计cnt_url_action表符合条件记录的条数，
+              并更新rpt_overview表中对应记录的报告数据（rpt_count）和报告时间（rpt_time）。
+
+          </pre>
+          
         </div>
 
       </div>
@@ -130,7 +145,8 @@
             <li><a href="#leave_email"><b class="text-success">免费订阅</b></a></li>
             <li><a href="#cancel_email"><b class="text-warning">取消订阅</b></a></li>
             <li><a href="#contact_us"><b class="text-success">联系我们</b></a></li>
-            <li><a href="#cnt_action"><b class="text-warning">网页访问统计</b></a></li>
+            <li><a href="#cnt_action"><b class="text-success">网页访问统计</b></a></li>
+            <li><a href="#rpt_overview_refresh"><b class="text-warning">网页访问概要统计刷新</b></a></li>
           </ul>
         </nav>
       </div>

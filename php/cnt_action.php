@@ -2,6 +2,14 @@
 require_once 'inc/common.php';
 require_once 'db/cnt_url_action.php';
 
+//跨域访问的时候才会存在此字段  
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+$origin_parse = parse_url($origin);
+// 跨域调用源站点
+$origin_host = isset($origin_parse['host']) ? $origin_parse['host'] : '';
+// 跨域调用源站点符合条件
+if (substr($origin_host, -10) == 'fnying.com' || substr($origin_host, -13) == 'hivebanks.com')
+    header("Access-Control-Allow-Origin:".$origin);
 header("cache-control:no-cache,must-revalidate");
 header("Content-Type:application/json;charset=utf-8");
 
@@ -19,16 +27,14 @@ GET参数
   获取到的访问url和来源url进行参数分割，然后统计到数据库表中，访问ip函数获取。
 */
 
-php_begin();
-
 // 参数检查
 $args = array('url');
 chk_empty_args('GET', $args);
 
 // 提交参数整理
-$referrer = get_arg_str('GET','referrer');      // 来源URL
-$url = get_arg_str('GET','url');                // 访问URL
-$uuid = get_arg_str('GET' , 'uuid');            // 访问ID
+$referrer = get_arg_str('GET','referrer', 512);       // 来源URL
+$url = get_arg_str('GET','url', 512);                 // 访问URL
+$uuid = get_arg_str('GET' , 'uuid');                  // 访问ID
 
 // 解析网址
 $referrer_parse = parse_url($referrer);
@@ -58,6 +64,6 @@ $data['action_id'] = $uuid;
 // 创建网址访问记录
 $ret = ins_cnt_url_action($data);
 
-// 正常返回
-exit_ok('ok');
+// 返回
+exit();
 ?>
