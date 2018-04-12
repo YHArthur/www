@@ -2,6 +2,7 @@
 require_once 'inc/common.php';
 require_once 'db/cnt_url_action.php';
 
+/*
 //跨域访问的时候才会存在此字段  
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 $origin_parse = parse_url($origin);
@@ -10,6 +11,8 @@ $origin_host = isset($origin_parse['host']) ? $origin_parse['host'] : '';
 // 跨域调用源站点符合条件
 if (substr($origin_host, -10) == 'fnying.com' || substr($origin_host, -13) == 'hivebanks.com')
     header("Access-Control-Allow-Origin:".$origin);
+*/
+header("Access-Control-Allow-Origin:*");
 header("cache-control:no-cache,must-revalidate");
 header("Content-Type:application/json;charset=utf-8");
 
@@ -52,6 +55,10 @@ $action_url .= isset($url_parse['path']) ? $url_parse['path'] : '';
 $action_prm = isset($url_parse['query']) ? $url_parse['query'] : '';
 // 访问IP
 $action_ip = get_int_ip();
+
+// 本地文件判断
+if (substr($action_url, 1, 1) == ':' || substr($action_url, 0, 5) == 'local' || substr($action_url, 0, 3) == '127')
+  exit();
 
 // 字段设定
 $data = array();
