@@ -10,7 +10,7 @@ function get_recent_url_action_by_key($url_key)
   $recent_time = time() - 24 * 60 * 60;
   $db = new DB_WWW();
 
-  $sql = "SELECT count(logid) as logid_count FROM cnt_url_action WHERE action_url like '%{$key}%' AND action_time > $recent_time";
+  $sql = "SELECT count(logid) as logid_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time > $recent_time";
   $logid_count = $db->getField($sql, 'logid_count');
   // if (is_null($logid_count)) $logid_count = 0;
   return $logid_count;
