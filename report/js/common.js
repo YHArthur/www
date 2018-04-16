@@ -200,7 +200,7 @@ function CallApiError(response) {
 // 调用API共通函数
 function CallApi(api_url, post_data, suc_func, error_func) {
 
-    var api_site = 'http://www.fnying.com/staff/api/';
+    var api_site = 'http://www.fnying.com/php/';
 
     post_data = post_data || {};
     suc_func = suc_func || $.noop;
