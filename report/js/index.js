@@ -1,14 +1,12 @@
 $(function () {
-    // 更新网站概要统计报表
+    // 更新并展示网站概要统计报表
     rpt_overview_refresh();
-    // 展示网站概要统计报表
-    rpt_overview();
 })
 
-// 更新网站概要统计报表
+// 更新并展示网站概要统计报表
 function rpt_overview_refresh() {
     var api_url = 'rpt_overview_refresh.php';
-    CallApi(api_url, {}, function (response) {}, function (response) {});
+    CallApi(api_url, {}, function (response) {rpt_overview()}, function (response){rpt_overview()});
 }
 
 // 展示网站概要统计报表
@@ -34,5 +32,5 @@ function rpt_overview() {
     }, function (response) {
         console.log(response.errmsg)
     });
-}   
+}
 
