@@ -26,7 +26,7 @@ function upd_rpt_overview($rpt_title, $rpt_count)
   $db = new DB_WWW();
   $data['rpt_count'] = $rpt_count;
   $data['rpt_time'] = date('Y-m-d H:i:s');
-  
+
   $where = "rpt_title = '{$rpt_title}'";
   $sql = $db->sqlUpdate("rpt_overview", $data, $where);
   $q_id = $db->query($sql);

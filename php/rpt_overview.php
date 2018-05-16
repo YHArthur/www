@@ -26,7 +26,6 @@ $rtn_ary['rows'] = $rows;
 
 // 正常返回
 $rtn_str = json_encode($rtn_ary);
-
 // 输出内容
 php_end($rtn_str);
 ?>
