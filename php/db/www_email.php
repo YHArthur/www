@@ -47,6 +47,21 @@ function get_recent_email_count_by_ip($user_ip)
 }
 
 //======================================
+// 函数: 取得有效订阅的所有邮件地址
+// 参数: 无
+// 返回: 记录数组
+//======================================
+function get_valid_email_all()
+{
+  $db = new DB_WWW();
+  $sql = "SELECT * FROM www_email WHERE is_void = 0 ORDER BY utime";
+
+  $db->query($sql);
+  $rows = $db->fetchAll();
+  return $rows;
+}
+
+//======================================
 // 函数: 创建用户邮件列表
 // 参数: $data          信息数组
 // 返回: true           创建成功
