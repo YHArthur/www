@@ -40,30 +40,43 @@ function ins_cnt_url_action($data)
 //======================================
 // 函数: 获取总访问量
 // 参数: $url_key           访问网址url
-// 返回: 总访数组
+// 返回: 总访总数
 // //======================================
 function get_all_action($url_key)
 {
   $db = new DB_WWW();
 
-  $sql = "SELECT * FROM cnt_url_action WHERE action_url like '%{$url_key}%'";
-  $db  -> query($sql);
-  $rows = $db->fetchAll();
-  return $rows;
+  $sql = "SELECT count(logid) as logid_count  FROM cnt_url_action WHERE action_url like '%{$url_key}%'";
+  $logid_count = $db->getField($sql, 'logid_count');
+  return $logid_count;
 }
 
 //======================================
 // 函数: 查询$url_key相似的数据统计
 // 参数: $url_key           访问网址url_key
+//返回： url_count           访问url总数
 //======================================
 
-function serch_rpt_detail($url_key, $today)
+function serch_rpt_detail($url_key, $begin_time,$end_time)
 {
-  $endtime = $today + 24 *60*60;
   $db = new DB_WWW();
-  $sql = "SELECT * FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$today}' AND action_time <= '{$endtime}'";
-  $db  -> query($sql);
-  $rows = $db->fetchAll();
-  return $rows;
+  $sql = "SELECT count(action_url) as url_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
+  $url_count = $db->getField($sql, 'url_count');
+  return $url_count;
 }
+
+//======================================
+// 函数: 查询$url_key相似的数据统计
+// 参数: $url_key           访问网址url_key
+// 返回：action_id           访问id总数
+//======================================
+
+function serch_rpt_detail_id($url_key, $begin_time,$end_time)
+{
+  $db = new DB_WWW();
+  $sql = "SELECT count(action_id) as id_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
+  $id_count = $db->getField($sql, 'id_count');
+  return $id_count;
+}
+
 ?>
