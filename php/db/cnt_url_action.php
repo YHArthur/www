@@ -36,4 +36,34 @@ function ins_cnt_url_action($data)
     return 0;
   return $db->insertID();
 }
+
+//======================================
+// 函数: 获取总访问量
+// 参数: $url_key           访问网址url
+// 返回: 总访数组
+// //======================================
+function get_all_action($url_key)
+{
+  $db = new DB_WWW();
+
+  $sql = "SELECT * FROM cnt_url_action WHERE action_url like '%{$url_key}%'";
+  $db  -> query($sql);
+  $rows = $db->fetchAll();
+  return $rows;
+}
+
+//======================================
+// 函数: 查询$url_key相似的数据统计
+// 参数: $url_key           访问网址url_key
+//======================================
+
+function serch_rpt_detail($url_key, $today)
+{
+  $endtime = $today + 24 *60*60;
+  $db = new DB_WWW();
+  $sql = "SELECT * FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$today}' AND action_time <= '{$endtime}'";
+  $db  -> query($sql);
+  $rows = $db->fetchAll();
+  return $rows;
+}
 ?>
