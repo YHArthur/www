@@ -16,6 +16,8 @@ header("Content-Type:application/json;charset=utf-8");
   获取到的网页访问信息
   $week_rows            一周的访问数据(存在获取，不存在创建)
   $rows                 每日的访问数据(存在获取，不存在创建)
+     rpt_title               报表标题
+     action_count            访问次数
   $all_action           所有符合条件的访问总数
 说明
  查询rpt_period_url_action数据表，如果有数据则进行数据读取(参数为$url_key,$begin_time,$end_time)
@@ -43,7 +45,7 @@ $week_time = $endLastweek - 7*24*60*60;
 //获取当前时间是本年的第几周
 $week_num = date("W",strtotime(date('Y-m-d')));
 //获取周浏览数
-$week_rows = get_week_overview($url_key,$week_time,$endLastweek);
+$week_amount = get_week_overview($url_key,$week_time,$endLastweek);
 if($week_rows == ''){
   //创建周访问统计记录
   $count = serch_rpt_detail($url_key,$week_time,$endLastweek);
@@ -62,7 +64,7 @@ if($week_rows == ''){
 }
 
 //获取总浏览量
-$all_action = get_all_action($url_key);
+$count_action = get_all_action($url_key);
 
 while($today){
   //获取每日浏览数
