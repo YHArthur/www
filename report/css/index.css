@@ -1,23 +1,3 @@
 body{background-color:#f8f8f8}
 .page__hd{padding:20px}
 .glyphicon{font-size:22px}
-.weui-cell__ft:after {
-    content: " ";
-    display: inline-block;
-    height: 6px;
-    width: 6px;
-    border-width: 2px 2px 0 0;
-    border-color: #C8C8CD;
-    border-style: solid;
-    -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-    position: relative;
-    top: -2px;
-    position: absolute;
-    top: 50%;
-    margin-top: -4px;
-    right: 5px;
-}
-.weui-cell {
-    padding: 10px 20px 10px 15px;
-}

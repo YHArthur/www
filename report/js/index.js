@@ -22,10 +22,9 @@ function rpt_overview() {
                 rpt_unit  = row.rpt_unit;
                 url_key  = row.url_key;
                 count_row = '\
-                <a class="weui-cell weui-cell_access" style="text-decoration:none;color:black" href="rpt_detail.php?url_key='+url_key+'">\
-                    <div class="weui-cell__bd">' + rpt_title +'</div>\
-                    <div class="weui_cell_primary">' + rpt_count + ' ' + rpt_unit +'</div>\
-                    <div class="weui-cell__ft"></div>\
+                <a class="weui-cell weui-cell_access" href="rpt_detail.php?url_key=' + url_key + '">\
+                    <div class="weui-cell__bd">' + rpt_title + '</div>\
+                    <div class="weui-cell__ft">' + rpt_count + ' ' + rpt_unit + '</div>\
                 </a>\
                 ';
                 $("#count_rows").append(count_row);
