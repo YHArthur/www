@@ -72,5 +72,4 @@ function serch_rpt_detail($url_key, $begin_time,$end_time)
   return array($url_count,$id_count);
 }
 
-
 ?>
