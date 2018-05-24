@@ -7,7 +7,7 @@
 //       $endtoday          截至时间
 // 返回: 记录数组
 //       rpt_title          标题
-//       action_count        数量
+//       action_count        访问量
 //======================================
 function get_rpt_overview_detail($url_key,$today,$endtoday)
 {
@@ -23,7 +23,7 @@ function get_rpt_overview_detail($url_key,$today,$endtoday)
 // 参数: $url_key           url关键字
 //       $week_time         数据获取起始时间
 //       $endLastweek       数据获取截至时间
-// 返回: url_count           访问总数 
+// 返回: url_count           url访问总数 
 //      
 //======================================
 function get_week_overview($url_key,$week_time,$endLastweek)
