@@ -37,23 +37,22 @@ function ins_cnt_url_action($data)
   return $db->insertID();
 }
 
-
 //======================================
 // 函数: 获取总访问量
-// 参数: $url_key          url关键字
-// 返回: logid_count       总访问数
+// 参数: $url_key                url关键字
+// 返回: $action_url_count       总访问数
 // //======================================
 function get_all_action($url_key)
 {
   $db = new DB_WWW();
 
   $sql = "SELECT count(logid) as logid_count  FROM cnt_url_action WHERE action_url like '%{$url_key}%'";
-  $logid_count = $db->getField($sql, 'logid_count');
-  return $logid_count;
+  $action_url_count = $db->getField($sql, 'logid_count');
+  return $action_url_count;
 }
 
 //======================================
-// 函数: 查询$url_key相似的数据统计
+// 函数: 查询统计$url_key相似的数据统计
 // 参数: $url_key           访问网址url_key
 //       $begin_time        查询起始时间
 //       $end_time          查询结束时间
@@ -65,11 +64,13 @@ function get_all_action($url_key)
 function serch_rpt_detail($url_key, $begin_time,$end_time)
 {
   $db = new DB_WWW();
-  $sql = "SELECT count(DISTINCT action_url) as url_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
-  $sql = "SELECT count(DISTINCT action_id) as id_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
-  $url_count = $db->getField($sql, 'url_count');
-  $id_count = $db->getField($sql, 'id_count');
+  $sql_url = "SELECT count(DISTINCT action_url) as url_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
+  $sql_id = "SELECT count(DISTINCT action_id) as id_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
+  $url_count = $db->getField($sql_url, 'url_count');
+  if($url_count == null)
+    $url_count = 0;
+  $id_count = $db->getField($sql_id, 'id_count');
+  if($id_count == null)
+    $id_count = 0;
   return array($url_count,$id_count);
 }
-
-?>

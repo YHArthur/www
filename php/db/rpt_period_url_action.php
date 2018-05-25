@@ -42,7 +42,6 @@ function get_week_overview($url_key,$week_time,$endLastweek)
 //======================================
 function creat_rpt_detail($data)
 {
-  // 提交时间
   $db = new DB_WWW();
   $sql = $db->sqlInsert("rpt_period_url_action", $data);
   $q_id = $db->query($sql);
