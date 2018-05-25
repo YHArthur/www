@@ -10,16 +10,19 @@ header("Content-Type:application/json;charset=utf-8");
 /*
 ========================== 网页访问信息获取 ==========================
 参数
-  $url_key              访问url关键字
+    $url_key              访问url关键字
 
 返回
-  获取到的网页访问信息
-  $week_rows            一周的访问数据(存在获取，不存在创建)
-  $rows                 每日的访问数据(存在获取，不存在创建)
-  $all_action           所有符合条件的访问总数
+    获取到的网页访问信息
+      week_amount                一周的访问次数(存在获取，不存在创建)
+      rows                       每日的访问数据(存在获取，不存在创建)
+        rpt_title                 报表标题
+        action_count              访问次数
+      count_action                所有符合条件的访问总数
+              
 说明
- 查询rpt_period_url_action数据表，如果有数据则进行数据读取(参数为$url_key,$begin_time,$end_time)
- 不存在则查询cnt_url_action数据表进行数据查询，通过creat_rpt_detail函数进行数据写入(rpt_period_url_action)。
+    查询rpt_period_url_action数据表，如果有数据则进行数据读取(参数为$url_key,$begin_time,$end_time)
+    不存在则查询cnt_url_action数据表进行数据查询，通过creat_rpt_detail函数进行数据写入(rpt_period_url_action)。
 */
 
 php_begin();
@@ -43,34 +46,18 @@ $week_time = $endLastweek - 7*24*60*60;
 //获取当前时间是本年的第几周
 $week_num = date("W",strtotime(date('Y-m-d')));
 //获取周浏览数
-$week_rows = get_week_overview($url_key,$week_time,$endLastweek);
-if($week_rows == ''){
-  //创建周访问统计记录
-  $count = serch_rpt_detail($url_key,$week_time,$endLastweek);
-  list($url_count,$id_count) = $count;
-  $data['action_url'] = $url_key;
-  $data['rpt_title'] = date('Y') . '第' . $week_num .'周';
-  $data['from_time_stamp'] = $week_time;
-  $data['to_time_stamp']  = $endLastweek;
-  $data['action_count'] = $url_count;
-  $data['id_count'] = $id_count;
-  $data['rpt_type'] = 'week';
-  $data['rpt_time'] = date('Y-m-s h:i:s');
-  $creat = creat_rpt_detail($data);
-  array_splice($data, 0, count($data));
-  $week_rows = get_week_overview($url_key,$week_time,$endLastweek);
-}
 
 //获取总浏览量
-$all_action = get_all_action($url_key);
+$count_action = get_all_action($url_key);
 
 while($today){
   //获取每日浏览数
   $rows = get_rpt_overview_detail($url_key, $today,$endday);
-  if(count($rows)){
-      $count_num['rpt_title'] =substr($rows['rpt_title'],5,10);
+  if(!empty($rows)){
+      $count_num['rpt_title'] =substr($rows['rpt_title'],5,5);
       $count_num['action_count'] = $rows['action_count'];
       $pout[] = $count_num;
+    
   }
   else{
     //创建日访问数据记录
@@ -83,16 +70,36 @@ while($today){
     $data['action_count'] = $url_count;
     $data['rpt_type'] = 'day';
     $data['id_count'] = $id_count;
-    $data['rpt_time'] = date('Y-m-s h:i:s');
+    $data['rpt_time'] = date('Y-m-d h:i:s');
     $creat = creat_rpt_detail($data);
     array_splice($data, 0, count($data));
     continue;
   }
   $today =$today - 24*60*60;
+  $endday = $today +24*60*60;
   if($today == $over_time){
     $today = 0;
   }
   $pout["action_url"] = $rows['action_url'];
+}
+
+$week_amount = get_week_overview($url_key,$week_time,$endLastweek);
+
+if($week_amount == ''){
+  //创建周访问统计记录
+  $count = serch_rpt_detail($url_key,$week_time,$endLastweek);
+  list($url_count,$id_count) = $count;
+  $data['action_url'] = $url_key;
+  $data['rpt_title'] = date('Y') . '第' . $week_num .'周';
+  $data['from_time_stamp'] = $week_time;
+  $data['to_time_stamp']  = $endLastweek;
+  $data['action_count'] = $url_count;
+  $data['id_count'] = $id_count;
+  $data['rpt_type'] = 'week';
+  $data['rpt_time'] = date('Y-m-d h:i:s');
+  $creat = creat_rpt_detail($data);
+  array_splice($data, 0, count($data));
+  $week_amount = get_week_overview($url_key,$week_time,$endLastweek);
 }
 
 
@@ -100,8 +107,8 @@ while($today){
 $rtn_ary = array();
 $rtn_ary['errcode'] = '0';
 $rtn_ary['errmsg'] = '';
-$rtn_ary['week_action'] =$week_rows;
-$rtn_ary['all_action'] =$all_action;
+$rtn_ary['week_action'] =$week_amount;
+$rtn_ary['all_action'] =$count_action;
 $rtn_ary['rows'] = $pout;
 $rtn_str = json_encode($rtn_ary);
 php_end($rtn_str);
