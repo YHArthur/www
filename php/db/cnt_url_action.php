@@ -65,10 +65,10 @@ function get_all_action($url_key)
 function serch_rpt_detail($url_key, $begin_time,$end_time)
 {
   $db = new DB_WWW();
-  $sql = "SELECT count(DISTINCT action_url) as url_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
-  $sql = "SELECT count(DISTINCT action_id) as id_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
-  $url_count = $db->getField($sql, 'url_count');
-  $id_count = $db->getField($sql, 'id_count');
+  $sql_url = "SELECT count(DISTINCT action_url) as url_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
+  $sql_id = "SELECT count(DISTINCT action_id) as id_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
+  $url_count = $db->getField($sql_url, 'url_count');
+  $id_count = $db->getField($sql_id, 'id_count');
   return array($url_count,$id_count);
 }
 
