@@ -85,7 +85,7 @@ while($today){
 
 $week_amount = get_week_overview($url_key,$week_time,$endLastweek);
 
-if($week_amount == ''){
+if(empty($week_amount)){
   //创建周访问统计记录
   $count = serch_rpt_detail($url_key,$week_time,$endLastweek);
   list($url_count,$id_count) = $count;
