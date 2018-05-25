@@ -50,23 +50,4 @@ function creat_rpt_detail($data)
   return $db->insertID();
 }
 
-//======================================
-// 函数: 更新网址周访问统计记录
-// 参数: $data           信息数组
-//       $where          更新条件
-// 返回: false           更新失败
-//       true            成功
-//======================================
-function upd_rpt_detail($data,$rpt_title)
-{
-  // 提交时间
-  $db = new DB_WWW();
-  $where ="rpt_title = '{$rpt_title}'";
-  $sql = $db->sqlUpdate("rpt_period_url_action", $data,$where);
-  $q_id = $db->query($sql);
-  if ($q_id == 0)
-    return false;
-  return true;
-}
-
 ?>
