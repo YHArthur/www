@@ -39,10 +39,10 @@ $rpt_unit = $row['rpt_unit'];
 
 $daily_sum = 0;
 
-// 最近30天-投票券激活状况
+// 最近7天-访问次数
 $chart = new DBChart('rpt_dayil_url_action_count', 'DB_REPORT', 'line');
 // 图表标题
-$chart->comment = '访问日报';
+$chart->comment = '访问次数';
 // 图表副标题
 $chart->add_comment = '最近7天';
 // 横轴说明
@@ -67,6 +67,35 @@ $chart->datasets = $datasets;
 $chart->show_title = false;
 // 图表输出处理
 $rpt_chart = $chart->output();
+
+// 最近7天-访问ID
+$chart = new DBChart('rpt_dayil_url_action_id', 'DB_REPORT', 'line');
+// 图表标题
+$chart->comment = '访问ID';
+// 图表副标题
+$chart->add_comment = '最近7天';
+// 横轴说明
+$chart->xaxes_label = '日期';
+// 纵轴说明
+$chart->yaxes_label = '访问ID数';
+// 数据来源表
+$chart->from_table = 'rpt_period_url_action';
+// 数据条件
+$from_time = strtotime('-8 day');
+$chart->where = "action_url = '{$url_key}' AND rpt_type = 'day' AND from_time_stamp >= '{$from_time}'";
+// 横轴字段
+$chart->row_column = 'SUBSTR(rpt_title, 6, 5)';
+// 纵轴字段
+$chart->col_column = 'id_count';
+// 数据集设定
+$datasets = array();
+// 全体
+$datasets[] = array('label'=>'访问ID','where'=>'');
+$chart->datasets = $datasets;
+// 不显示图表标题
+$chart->show_title = false;
+// 图表输出处理
+$rpt_chart .= $chart->output();
 
 // 返回数据做成
 $rtn_ary = array();
