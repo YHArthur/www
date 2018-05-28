@@ -10,19 +10,24 @@
 <body>
 
   <div class="page__hd">
-    <h1 class="page__title">统计概要</h1>
-    <p class="page__desc"><?php echo date('Y-m-d H:i:s')?></p>
+    <h1 class="page__title" id="title">日报-<span id='url_key'></span></h1>
+    <p class="page__desc">最近7天访问：<span id='daily_sum'></span></p>
   </div>
-
-  <div class="weui-cells__title">最近24小时</div>
-  <div id="count_rows" class="weui-cells">
+  <div class="weui-flex">
+    <div class="placeholder">&nbsp;</div>
+    <div class="weui-flex__item">
+      <div id="rpt_chart"><canvas id="myChart" width="100%" height="80%"></canvas></div>
+    </div>
+    <div class="placeholder">&nbsp;</div>
   </div>
 
   <div class="weui-msg__extra-area">©2018 风赢科技</div>
 
   <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="js/Chart.bundle.min.js"></script>
   <script src="js/common.js"></script>
-  <script src="js/index.js"></script>
+  <script src="js/rpt_daily.js"></script>
 
 </body>
 </html>
+

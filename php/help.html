@@ -100,67 +100,6 @@
 
           </pre>
 
-          <h3 id="cnt_action">网页访问统计</h3>
-          <h2><a href='http://www.fnying.com/php/cnt_action.php' target='api'>http://www.fnying.com/php/cnt_action.php</a></h2>
-          <pre>
-            <b>GET参数</b>
-              referrer        来源URL
-              url             访问URL
-              uuid            UUID
-
-            <b>返回</b>
-              统计而已，不管对错，不返回任何东西
-
-            <b>说明</b>
-              将来源URL，访问URL的参数剥离后保存入cnt_url_action表
-
-          </pre>
-
-          <h3 id="rpt_overview">网页访问概要统计</h3>
-          <h2><a href='http://www.fnying.com/php/rpt_overview.php' target='api'>http://www.fnying.com/php/rpt_overview.php</a></h2>
-          <pre>
-            <b>参数</b>
-              无
-
-            <b>返回</b>
-              获取网页访问概要统计数据
-
-            <b>说明</b>
-
-          </pre>
-
-          <h3 id="rpt_overview_refresh">网页访问概要统计刷新</h3>
-          <h2><a href='http://www.fnying.com/php/rpt_overview_refresh.php' target='api'>http://www.fnying.com/php/rpt_overview_refresh.php</a></h2>
-          <pre>
-            <b>参数</b>
-              无
-
-            <b>返回</b>
-              刷新数据，不管对错，不返回任何东西
-
-            <b>说明</b>
-              将rpt_overview表中所有记录读出，按照URL关键字（url_key）统计cnt_url_action表符合条件记录的条数，
-              并更新rpt_overview表中对应记录的报告数据（rpt_count）和报告时间（rpt_time）。
-
-          </pre>
-          
-          <h3 id="rpt_detail">网页访问信息获取</h3>
-          <h2><a href='http://www.fnying.com/php/rpt_detail.php' target='api'>http://www.fnying.com/php/rpt_detail.php</a></h2>
-          <pre>
-            <b>参数</b>
-              $url_key                   访问url关键字
-              
-            <b>返回</b>
-              获取到的网页访问信息
-              $week_rows                  一周的访问总数(存在获取，不存在创建)
-              $rows                       每日的访问数据(存在获取，不存在创建)
-              $all_action                 所有符合条件的访问总数
-              
-            <b>说明</b>
-              查询rpt_period_url_action数据表，如果有数据则进行数据读取(参数为$url_key,$begin_time,$end_time)
-              不存在则查询cnt_url_action数据表进行数据查询，通过creat_rpt_detail函数进行数据写入(rpt_period_url_action)。
-          </pre>
-
         </div>
 
       </div>
@@ -175,11 +114,6 @@
             <li><a href="#leave_email"><b class="text-success">免费订阅</b></a></li>
             <li><a href="#cancel_email"><b class="text-warning">取消订阅</b></a></li>
             <li><a href="#contact_us"><b class="text-success">联系我们</b></a></li>
-            <li><a href="#cnt_action"><b class="text-success">网页访问统计</b></a></li>
-            <li><a href="#rpt_overview"><b class="text-success">网页访问概要统计</b></a></li>
-            <li><a href="#rpt_overview_refresh"><b class="text-warning">网页访问概要统计刷新</b></a></li>
-            <li><a href="#rpt_detail"><b class="text-warning">网页访问信息获取</b></a></li>
-
           </ul>
         </nav>
       </div>

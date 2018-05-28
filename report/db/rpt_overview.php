@@ -1,12 +1,30 @@
 <?php
 //======================================
+// 功能: URL关键字存在检查
+// 参数: $url_key       URL关键字
+// 返回: true           存在
+// 返回: false          不存在
+//======================================
+function chk_url_key_exist($url_key)
+{
+  $db = new DB_REPORT();
+
+  $sql = "SELECT rpt_title FROM rpt_overview WHERE url_key = '{$url_key}'";
+  $db->query($sql);
+  $rds = $db->recordCount();
+  if ($rds == 0)
+    return false;
+  return true;
+}
+
+//======================================
 // 函数: 取得概要统计报告所有记录
 // 参数: 无
 // 返回: 记录数组
 //======================================
 function get_rpt_overview_all()
 {
-  $db = new DB_WWW();
+  $db = new DB_REPORT();
   $sql = "SELECT * FROM rpt_overview ORDER BY rpt_sort";
 
   $db->query($sql);
@@ -23,7 +41,7 @@ function get_rpt_overview_all()
 //======================================
 function upd_rpt_overview($rpt_title, $rpt_count)
 {
-  $db = new DB_WWW();
+  $db = new DB_REPORT();
   $data['rpt_count'] = $rpt_count;
   $data['rpt_time'] = date('Y-m-d H:i:s');
 

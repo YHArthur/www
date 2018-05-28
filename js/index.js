@@ -1,32 +1,27 @@
-$(function(){
+window.shareData = {
     // 分享标题
-    var ShareTitle = '风赢科技官网';
+    title: "风赢科技官网",
     // 分享描述
-    var ShareDesc = '风行天下，赢在中国！上海风赢网络科技有限公司官方网站（www.fnying.com）';
+    desc: "风行天下，赢在中国！上海风赢网络科技有限公司官方网站（www.fnying.com）",
     // 分享链接
-    var ShareLink = window.location.href;
+    link: window.location.href,
     // 分享图标
-    var ShareimgUrl = 'http://www.fnying.com/img/share.jpg';
-    
-    // 微信配置启动
-    wx_config();
+    imgUrl: 'http://www.fnying.com/img/share.jpg',
+    success: function () {},
+    cancel: function () {}
+};
 
-    wx.ready(function() {
-
-        wx.onMenuShareTimeline({
-            title: ShareTitle,
-            desc: ShareDesc,
-            link: ShareLink,
-            imgUrl: ShareimgUrl
+$(function(){
+    if (/MicroMessenger/i.test(navigator.userAgent)) {
+        $.getScript("https://res.wx.qq.com/open/js/jweixin-1.2.0.js", function () {
+            // 微信配置启动
+            wx_config();
+            wx.ready(function() {
+                wx.onMenuShareTimeline(shareData);
+                wx.onMenuShareAppMessage(shareData);
+            });
         });
-
-        wx.onMenuShareAppMessage({
-            title: ShareTitle,
-            desc: ShareDesc,
-            link: ShareLink,
-            imgUrl: ShareimgUrl
-        });
-    });
+    }
   
     var uuid = GetCookie('UUID');
     if (!uuid) {

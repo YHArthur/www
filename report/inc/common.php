@@ -8,6 +8,7 @@ require_once('log.php');
 require_once('test_arg.php');
 require_once('mysql.php');
 require_once('db_connect.php');
+require_once('db_chart.php');
 
 //======================================
 // 函数: chk_empty_args($type, $args)

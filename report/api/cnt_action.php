@@ -1,6 +1,6 @@
 <?php
-require_once '../report/inc/common.php';
-require_once '../report/db/cnt_url_action.php';
+require_once '../inc/common.php';
+require_once '../db/cnt_url_action.php';
 
 /*
 //跨域访问的时候才会存在此字段  
@@ -14,7 +14,6 @@ if (substr($origin_host, -10) == 'fnying.com' || substr($origin_host, -13) == 'h
 */
 header("Access-Control-Allow-Origin:*");
 header("cache-control:no-cache,must-revalidate");
-header("Content-Type:application/json;charset=utf-8");
 
 /*
 ========================== 网页访问统计 ==========================

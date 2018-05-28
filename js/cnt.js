@@ -8,5 +8,5 @@ if (window.XMLHttpRequest) {
 } else {
     xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 }
-xmlhttp.open("GET","http://www.fnying.com/php/cnt_action.php?referrer=" + ref + "&url=" + url + "&uuid=" + uuid, true);
+xmlhttp.open("GET","http://www.fnying.com/report/api/cnt_action.php?referrer=" + ref + "&url=" + url + "&uuid=" + uuid, true);
 xmlhttp.send();

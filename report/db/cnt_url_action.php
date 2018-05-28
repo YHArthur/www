@@ -1,5 +1,20 @@
 <?php
 //======================================
+// 函数: 取得最早一次URL关键字的访问时间戳
+// 参数: $url_key       URL关键字
+// 返回: 时间戳
+//======================================
+function get_url_action_first_time($url_key)
+{
+  $db = new DB_REPORT();
+
+  $sql = "SELECT action_time FROM cnt_url_action WHERE action_url like '%{$url_key}%' ORDER BY action_time LIMIT 1";
+  $action_time = $db->getField($sql, 'action_time');
+  return $action_time;
+}
+
+
+//======================================
 // 函数: 取得符合关键字的近期网址访问记录的数量
 // 参数: $url_key       URL关键字
 // 返回: 符合条件的记录数量
@@ -8,7 +23,7 @@ function get_recent_url_action_by_key($url_key)
 {
   // 最近24小时
   $recent_time = time() - 24 * 60 * 60;
-  $db = new DB_WWW();
+  $db = new DB_REPORT();
 
   $sql = "SELECT count(logid) as logid_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time > $recent_time";
   $logid_count = $db->getField($sql, 'logid_count');
@@ -27,7 +42,7 @@ function ins_cnt_url_action($data)
   // 提交时间
   $data['action_time'] = time();
 
-  $db = new DB_WWW();
+  $db = new DB_REPORT();
 
   $sql = $db->sqlInsert("cnt_url_action", $data);
   $q_id = $db->query($sql);
@@ -44,7 +59,7 @@ function ins_cnt_url_action($data)
 // //======================================
 function get_all_action($url_key)
 {
-  $db = new DB_WWW();
+  $db = new DB_REPORT();
 
   $sql = "SELECT count(logid) as logid_count  FROM cnt_url_action WHERE action_url like '%{$url_key}%'";
   $action_url_count = $db->getField($sql, 'logid_count');
@@ -63,7 +78,7 @@ function get_all_action($url_key)
 
 function serch_rpt_detail($url_key, $begin_time,$end_time)
 {
-  $db = new DB_WWW();
+  $db = new DB_REPORT();
   $sql_url = "SELECT count(DISTINCT action_url) as url_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
   $sql_id = "SELECT count(DISTINCT action_id) as id_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
   $url_count = $db->getField($sql_url, 'url_count');

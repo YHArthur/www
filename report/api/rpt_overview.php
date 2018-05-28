@@ -1,6 +1,6 @@
 <?php
-require_once 'inc/common.php';
-require_once 'db/rpt_overview.php';
+require_once '../inc/common.php';
+require_once '../db/rpt_overview.php';
 
 /*
 ========================== 网页访问概要统计 ==========================

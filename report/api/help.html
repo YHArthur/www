@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>风赢报表用API说明文档</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+<link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link href="help.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="bs-docs-header" id="content" tabindex="-1">
+    <div class="container">
+      <h1>风赢报表用API说明文档</h1>
+      <p>2018.5.25 V1.0 by Y·H</p>
+    </div>
+  </div>
+
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="bs-docs-section">
+
+          <h3 id="common">概要说明</h3>
+          <h2></h2>
+          <pre>
+            <b>API访问地址</b>
+              正式服：http://www.fnying.com/report/api/
+
+            <b>返回数据格式</b>
+              json
+
+            <b>异常返回</b>
+              errcode 返回码
+              errmsg  失败信息
+
+              常见错误码：
+              -1  系统繁忙，稍候再试
+              110 服务异常中断，请与管理员联系
+              120 参数错误
+          </pre>
+
+          <h3 id="cnt_action">网页访问统计</h3>
+          <h2><a href='http://www.fnying.com/report/api/cnt_action.php' target='api'>http://www.fnying.com/report/api/cnt_action.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              referrer        来源URL
+              url             访问URL
+              uuid            UUID
+
+            <b>返回</b>
+              统计而已，不管对错，不返回任何东西
+
+            <b>说明</b>
+              将来源URL，访问URL的参数剥离后保存入cnt_url_action表
+
+          </pre>
+
+          <h3 id="rpt_overview">网页访问概要统计</h3>
+          <h2><a href='http://www.fnying.com/report/api/rpt_overview.php' target='api'>http://www.fnying.com/report/api/rpt_overview.php</a></h2>
+          <pre>
+            <b>参数</b>
+              无
+
+            <b>返回</b>
+              获取网页访问概要统计数据
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="rpt_overview_refresh">网页访问概要统计刷新</h3>
+          <h2><a href='http://www.fnying.com/report/api/rpt_overview_refresh.php' target='api'>http://www.fnying.com/report/api/rpt_overview_refresh.php</a></h2>
+          <pre>
+            <b>参数</b>
+              无
+
+            <b>返回</b>
+              刷新数据，不管对错，不返回任何东西
+
+            <b>说明</b>
+              将rpt_overview表中所有记录读出，按照URL关键字（url_key）统计cnt_url_action表符合条件记录的条数，
+              并更新rpt_overview表中对应记录的报告数据（rpt_count）和报告时间（rpt_time）。
+
+          </pre>
+
+          <h3 id="rpt_daily">网页访问日报统计（最近7日）</h3>
+          <h2><a href='http://www.fnying.com/report/api/rpt_overview.php' target='api'>http://www.fnying.com/report/api/rpt_overview.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              url_key         URL关键字
+
+            <b>返回</b>
+              rpt_title       报告标题
+              rpt_unit        报告单位
+              daily_sum       最近7日总数
+              rpt_chart       报表代码
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="rpt_daily_refresh">网页访问日报统计刷新</h3>
+          <h2><a href='http://www.fnying.com/report/api/rpt_overview_refresh.php' target='api'>http://www.fnying.com/report/api/rpt_overview_refresh.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              url_key         URL关键字
+
+            <b>返回</b>
+              刷新数据，不管对错，不返回任何东西
+
+            <b>说明</b>
+              判断该URL关键字是否在rpt_overview表中存在，不存在不处理
+              存在从rpt_period_url_action表中取出最近一次日报数据和当前时间比较，
+              若是新的日报数据需要生成则生成，一直到处理完毕。
+
+          </pre>
+
+        </div>
+
+      </div>
+
+      
+      <div class="col-md-3" role="complementary">
+        <nav class="bs-docs-sidebar hidten-print hidten-xs hidten-sm fixmenu">
+          <ul class="nav bs-docs-sidenav">
+            <li><a href="#common"><b>概要说明</b></a></li>
+            <li>------------------------------------------</li>
+            <li><a href="#cnt_action"><b class="text-success">网页访问统计</b></a></li>
+            <li><a href="#rpt_overview"><b class="text-success">网页访问概要统计</b></a></li>
+            <li><a href="#rpt_overview_refresh"><b class="text-success">网页访问概要统计刷新</b></a></li>
+            <li><a href="#rpt_daily"><b class="text-success">网页访问日报统计（最近7日）</b></a></li>
+            <li><a href="#rpt_daily_refresh"><b class="text-success">网页访问日报统计刷新</b></a></li>
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+

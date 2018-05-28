@@ -1,8 +1,8 @@
 <?php
-require_once 'inc/common.php';
-require_once 'db/rpt_overview.php';
-require_once 'db/rpt_period_url_action.php';
-require_once 'db/cnt_url_action.php';
+require_once '../inc/common.php';
+require_once '../db/rpt_overview.php';
+require_once '../db/rpt_period_url_action.php';
+require_once '../db/cnt_url_action.php';
 
 header("cache-control:no-cache,must-revalidate");
 header("Content-Type:application/json;charset=utf-8");
