@@ -1,6 +1,6 @@
 <?php
 //======================================
-// 函数: 取得最早一次URL关键字的访问时间戳
+// 函数: 取得最早一次指定URL关键字的访问时间戳
 // 参数: $url_key       URL关键字
 // 返回: 时间戳
 //======================================
@@ -13,22 +13,30 @@ function get_url_action_first_time($url_key)
   return $action_time;
 }
 
-
 //======================================
-// 函数: 取得符合关键字的近期网址访问记录的数量
-// 参数: $url_key       URL关键字
-// 返回: 符合条件的记录数量
+// 函数: 取得指定URL关键字在指定时间段内的访问次数和访问ID数量
+// 参数: $url_key           URL关键字
+// 参数: $time_from         开始时间戳
+// 参数: $time_to           结束时间戳
+// 返回: 数组
+// 返回: action_count       访问次数
+// 返回: id_count           访问ID数量
 //======================================
-function get_recent_url_action_by_key($url_key)
+function get_url_action_duration_count($url_key, $time_from, $time_to)
 {
-  // 最近24小时
-  $recent_time = time() - 24 * 60 * 60;
   $db = new DB_REPORT();
-
-  $sql = "SELECT count(logid) as logid_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time > $recent_time";
-  $logid_count = $db->getField($sql, 'logid_count');
-  // if (is_null($logid_count)) $logid_count = 0;
-  return $logid_count;
+  $sql = "SELECT COUNT(logid) AS action_count,";
+  $sql .= " COUNT(DISTINCT action_id) AS id_count";
+  $sql .= " FROM cnt_url_action";
+  $sql .= " WHERE action_url like '%{$url_key}%'";
+  $sql .= " AND action_time >= '{$time_from}'";
+  $sql .= " AND action_time <= '{$time_to}'";
+  
+  $db->query($sql);
+  $row = $db->fetchRow();
+  $action_count = $row['action_count'];
+  $id_count = $row['id_count'];
+  return array($action_count, $id_count);
 }
 
 //======================================
@@ -52,40 +60,5 @@ function ins_cnt_url_action($data)
   return $db->insertID();
 }
 
-//======================================
-// 函数: 获取总访问量
-// 参数: $url_key                url关键字
-// 返回: $action_url_count       总访问数
-// //======================================
-function get_all_action($url_key)
-{
-  $db = new DB_REPORT();
+?>
 
-  $sql = "SELECT count(logid) as logid_count  FROM cnt_url_action WHERE action_url like '%{$url_key}%'";
-  $action_url_count = $db->getField($sql, 'logid_count');
-  return $action_url_count;
-}
-
-//======================================
-// 函数: 查询统计$url_key相似的数据统计
-// 参数: $url_key           访问网址url_key
-//       $begin_time        查询起始时间
-//       $end_time          查询结束时间
-//返回： 数组                总访问量以及总访问id(去重)
-//         $url_count       总访问量(去重)
-//         $id_count        总访问id量(去重)
-//======================================
-
-function serch_rpt_detail($url_key, $begin_time,$end_time)
-{
-  $db = new DB_REPORT();
-  $sql_url = "SELECT count(DISTINCT action_url) as url_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
-  $sql_id = "SELECT count(DISTINCT action_id) as id_count FROM cnt_url_action WHERE action_url like '%{$url_key}%' AND action_time >= '{$begin_time}' AND action_time <= '{$end_time}'";
-  $url_count = $db->getField($sql_url, 'url_count');
-  if($url_count == null)
-    $url_count = 0;
-  $id_count = $db->getField($sql_id, 'id_count');
-  if($id_count == null)
-    $id_count = 0;
-  return array($url_count,$id_count);
-}

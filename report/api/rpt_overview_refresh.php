@@ -22,12 +22,14 @@ $rows = get_rpt_overview_all();
 // 有记录存在
 if ($rows) {
   foreach ($rows as $row) {
-    $url = $row['url_key'];                       // URL关键字
-    $rpt_title = $row['rpt_title'];               // 报告标题
-    // 取得符合关键字的近期网址访问记录的数量
-    $rpt_count = get_recent_url_action_by_key($url);
+    $url_key = $row['url_key'];                   // URL关键字
+    $time_from = time() - 24 * 60 * 60;           // 开始时间戳
+    $time_to = time();                            // 结束时间戳
+    
+    // 取得指定URL关键字在指定时间段内的访问次数和访问ID数量
+    list($action_count, $id_count) = get_url_action_duration_count($url_key, $time_from, $time_to);
     // 更新概要统计报告中指定报告标题的记录
-    upd_rpt_overview($rpt_title , $rpt_count);
+    upd_rpt_overview($url_key, $action_count);
   }
 }
 

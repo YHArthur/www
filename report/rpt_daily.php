@@ -10,13 +10,13 @@
 <body>
 
   <div class="page__hd">
-    <h1 class="page__title" id="title">日报-<span id='url_key'></span></h1>
-    <p class="page__desc">最近7天访问：<span id='daily_sum'></span></p>
+    <h1 class="page__title" id="title"><span id='rpt_title'></span></h1>
+    <p class="page__desc"><span id='url_key'></span></p>
   </div>
   <div class="weui-flex">
     <div class="placeholder">&nbsp;</div>
     <div class="weui-flex__item">
-      <div id="rpt_chart"><canvas id="myChart" width="100%" height="80%"></canvas></div>
+      <div id="rpt_chart"></div>
     </div>
     <div class="placeholder">&nbsp;</div>
   </div>

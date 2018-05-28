@@ -1,5 +1,6 @@
 $(function () {
     var url_key = GetQueryString('url_key');
+    $("#url_key").html(url_key);
     // 更新并展示网站日报表
     rpt_daily_refresh(url_key);
 })
@@ -14,23 +15,10 @@ function rpt_daily_refresh(url_key) {
 function rpt_daily(url_key) {
     var api_url = 'rpt_daily.php?url_key=' + url_key;
     CallApi(api_url, {}, function (response) {
-        var rpt_title, rpt_unit, rpt_count, url_key;
-        var rows = response.rows;
-        if (rows.length > 0) {
-            rows.forEach(function(row, index, array) {
-                rpt_title = row.rpt_title;
-                rpt_count = row.rpt_count;
-                rpt_unit  = row.rpt_unit;
-                url_key  = row.url_key;
-                count_row = '\
-                <a class="weui-cell weui-cell_access" href="rpt_detail.php?url_key=' + url_key + '">\
-                    <div class="weui-cell__bd">' + rpt_title + '</div>\
-                    <div class="weui-cell__ft">' + rpt_count + ' ' + rpt_unit + '</div>\
-                </a>\
-                ';
-                $("#count_rows").append(count_row);
-            });
-        }
+        $("#rpt_title").html(response.rpt_title);
+        $("#daily_sum").html(response.daily_sum);
+        $("#rpt_unit").html(response.rpt_unit);
+        $("#rpt_chart").html(response.rpt_chart);
     }, function (response) {
         AlertDialog(response.errmsg)
     });
