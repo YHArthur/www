@@ -2,7 +2,7 @@ $(function () {
   // 最近七日访问统计展示
   rpt_detail();
   })
-var url_key = $('#url_key').text();
+var url_key = GetQueryString('url_key');
 var  title = "";
 function rpt_detail() {
   var api_url = 'rpt_detail.php';
@@ -11,9 +11,12 @@ function rpt_detail() {
     //返回的每日浏览量数组
     var rows = response.rows;
     //返回的一周浏览量统计
-    var week_action = response.week_action;
+    var week_amount ='最近一周访问总数：' + response.week_amount;
+    $('#week_amount').text(week_amount);
+    
     //返回的当前报表所有浏览记录
     var all_action = response.all_action;
+    //标题
     title = rows['action_url']; 
     $("#title").text(title);
     var data =[rows[6]['action_count'],rows[5]['action_count'],rows[4]['action_count'],rows[3]['action_count'],rows[2]['action_count'],rows[1]['action_count'],rows[0]['action_count']];
