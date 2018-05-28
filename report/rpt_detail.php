@@ -11,14 +11,21 @@
 
   <div class="page__hd">
     <h1 class="page__title" id="title"></h1>
-    <p class="page__desc"><?php echo date('Y-m-d H:i:s')?></p>
+    <div class="page__desc" id="week_amount"></div>
   </div>
-  <div id="url_key" style="display:none"><?php echo $_GET['url_key'] ?></div> 
+  
   <div class="weui-cells__title">统计折线图</div>
-  <div id="count_rows" class="weui-cells">
-    <canvas id="myChart" width="100%" height="80%"></canvas>
-  </div>
-
+  
+  <div class="weui-flex">
+    <div><div style="width:20px;height=100%" class="placeholder"></div></div>
+    <div class="weui-flex__item">
+      <div id="count_rows" class="weui-cells">
+        <canvas id="myChart" width="80%" height="80%"></canvas>
+      </div>
+    </div>
+    <div><div style="width:20px;height=100%" class="placeholder"></div></div>
+  </div> 
+  
   <div class="weui-msg__extra-area">©2018 风赢科技</div>
 
   <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
