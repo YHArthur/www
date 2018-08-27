@@ -11,7 +11,7 @@
 
   <div class="page__hd">
     <h1 class="page__title">统计概要</h1>
-    <p class="page__desc"><?php echo date('Y-m-d H:i:s')?></p>
+    <p class="page__desc"></p>
   </div>
 
   <div class="weui-cells__title">最近24小时</div>

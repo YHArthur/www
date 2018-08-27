@@ -6,13 +6,13 @@ $(function () {
 
 // 更新并展示网站日报表
 function rpt_daily_refresh(url_key) {
-    var api_url = 'rpt_daily_refresh.php?url_key=' + url_key;
+    var api_url = 'report/api/rpt_daily_refresh.php?url_key=' + url_key;
     CallApi(api_url, {}, function (response) {rpt_daily(url_key)}, function (response){rpt_daily(url_key)});
 }
 
 // 展示网站日报表
 function rpt_daily(url_key) {
-    var api_url = 'rpt_daily.php?url_key=' + url_key;
+    var api_url = 'report/api/rpt_daily.php?url_key=' + url_key;
     CallApi(api_url, {}, function (response) {
         $("#url_key").html(url_key);
         $("#rpt_title").html(response.rpt_title);
