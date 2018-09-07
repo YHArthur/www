@@ -61,4 +61,3 @@ function ins_cnt_url_action($data)
 }
 
 ?>
-

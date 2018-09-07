@@ -1,8 +1,33 @@
+window.shareData = {
+    // 分享标题
+    title: "风赢科技数据统计",
+    // 分享描述
+    desc: "",
+    // 分享链接
+    link: window.location.href,
+    // 分享图标
+    imgUrl: 'http://www.fnying.com/staff/wx/img/share.jpg',
+    success: function () {},
+    cancel: function () {}
+};
+
 $(function () {
-    // 展示公司死亡时间
-    show_death_limit();
+    // 展示公司概要统计
+    show_rpt_index();
     // 更新并展示网站概要统计报表
     rpt_overview_refresh();
+    
+    // 微信分享处理
+    if (/MicroMessenger/i.test(navigator.userAgent)) {
+        $.getScript("https://res.wx.qq.com/open/js/jweixin-1.2.0.js", function () {
+            // 微信配置启动
+            wx_config();
+            wx.ready(function() {
+                wx.onMenuShareTimeline(shareData);
+                wx.onMenuShareAppMessage(shareData);
+            });
+        });
+    }
 })
 
 // 更新并展示网站概要统计报表
@@ -13,7 +38,7 @@ function rpt_overview_refresh() {
 
 // 前置0
 function addPreZero(num, size){
- return ('000000000' + num).slice(-1 * size);
+    return ('000000000' + num).slice(-1 * size);
 }
 
 // 取得当前时间
@@ -28,21 +53,29 @@ function getNowDate() {
     return date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 }
 
-// 展示公司死亡时间
-function show_death_limit() {
-    var html_str = getNowDate();
-    var api_url = 'staff/api/death_limit.php';
+// 展示公司概要统计
+function show_rpt_index() {
+    var time_str = getNowDate();
+    $("#time_now").html(time_str);
+    var api_url = 'staff/api/rpt_index.php';
     CallApi(api_url, {}, function (response) {
+        // 公司生存时间
         var live_months = response.live_months;
-        html_str += '<br>公司还能生存 ' + live_months + ' 个月';
-        $(".page__desc").html(html_str);
+        var death_str = '公司还能生存 ' + live_months + ' 个月';
+        $("#time_death").html(death_str);
+        window.shareData.desc = time_str + ' ' + death_str;
+        // 昨日完成行动数
+        var day_closed_actions = response.day_closed_actions;
+        $("#day_closed_actions").html(day_closed_actions);
+        // 本周完成行动数
+        var week_closed_actions = response.week_closed_actions;
+        $("#week_closed_actions").html(week_closed_actions);
     }, function (response) {
-        $(".page__desc").html(html_str);
         AlertDialog(response.errmsg)
     });
 }
 
-// 展示网站概要统计报表
+// 展示网站访问概要统计报表
 function rpt_overview() {
     var api_url = 'report/api/rpt_overview.php';
     CallApi(api_url, {}, function (response) {
