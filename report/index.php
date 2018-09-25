@@ -20,12 +20,12 @@
 
   <div class="weui-cells__title">完成行动数量</div>
   <div id="action_rows" class="weui-cells">
-    <a class="weui-cell weui-cell_access" href="../staff/wx/action_daily_report.php">
+    <a class="weui-cell weui-cell_access" href="../staff/wx/action_daily_report.php?day=1">
       <div class="weui-cell__bd">昨日完成行动总数</div>
       <div class="weui-cell__ft"><span id="day_closed_actions"></span> 件</div>
     </a>
 
-    <a class="weui-cell weui-cell_access" href="../staff/wx/action_weekly_report.php">
+    <a class="weui-cell weui-cell_access" href="../staff/wx/action_weekly_report.php?week=0">
       <div class="weui-cell__bd">本周完成行动总数</div>
       <div class="weui-cell__ft"><span id="week_closed_actions"></span> 件</div>
     </a>
