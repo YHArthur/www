@@ -34,7 +34,7 @@
   <div class="weui-cells__title">最近24小时访问</div>
   <div id="count_rows" class="weui-cells"></div>
 
-  <div class="weui-msg__extra-area"><a href="../staff/h5_menu.php">©2018 风赢科技</a></div>
+  <div class="weui-msg__extra-area"><a href="../staff/h5_menu.php">风赢科技</a></div>
 
   <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="js/common.js"></script>
